@@ -866,950 +866,1057 @@ describe('app routes', () => {
         }
       ];
 
-      const finalWeather = formatWeather(weatherObject.body);
+      const finalWeather = formatWeather(weatherObject);
 
       expect(finalWeather).toEqual(expectation);
     });
-  
+
     // weather munge util test
-    test('returns formatted weather information when given an unformattted array of weather data', async () => {
-      const reviewObject = 
-            {
-              businesses: [
-                {
-                  'id': 'wGl_DyNxSv8KUtYgiuLhmA',
-                  'alias': 'bi-rite-creamery-san-francisco',
-                  'name': 'Bi-Rite Creamery',
-                  'image_url': 'https://s3-media2.fl.yelpcdn.com/bphoto/iPNJKlOQ7-eyqa4Yv2r2BA/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/bi-rite-creamery-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 9652,
-                  'categories': [
-                    {
-                      'alias': 'icecream',
-                      'title': 'Ice Cream & Frozen Yogurt'
-                    }
-                  ],
-                  'rating': 4.5,
-                  'coordinates': {
-                    'latitude': 37.761591,
-                    'longitude': -122.425717
-                  },
-                  'transactions': [
-                    'delivery'
-                  ],
-                  'price': '$',
-                  'location': {
-                    'address1': '3692 18th St',
-                    'address2': null,
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94110',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '3692 18th St',
-                      'San Francisco, CA 94110'
-                    ]
-                  },
-                  'phone': '+14156265600',
-                  'display_phone': '(415) 626-5600',
-                  'distance': 692.8186122473572
-                },
-                {
-                  'id': 'ri7UUYmx21AgSpRsf4-9QA',
-                  'alias': 'tartine-bakery-and-cafe-san-francisco',
-                  'name': 'Tartine Bakery & Cafe',
-                  'image_url': 'https://s3-media2.fl.yelpcdn.com/bphoto/nPUUXYVVa3CHJh5yzH8Xnw/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/tartine-bakery-and-cafe-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 8037,
-                  'categories': [
-                    {
-                      'alias': 'bakeries',
-                      'title': 'Bakeries'
-                    },
-                    {
-                      'alias': 'cafes',
-                      'title': 'Cafes'
-                    },
-                    {
-                      'alias': 'desserts',
-                      'title': 'Desserts'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.76131,
-                    'longitude': -122.42431
-                  },
-                  'transactions': [
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '600 Guerrero St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94110',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '600 Guerrero St',
-                      'San Francisco, CA 94110'
-                    ]
-                  },
-                  'phone': '+14154872600',
-                  'display_phone': '(415) 487-2600',
-                  'distance': 651.2054292077362
-                },
-                {
-                  'id': 'CYttYTEiQuhSfo3SEh79fA',
-                  'alias': 'shizen-vegan-sushi-bar-and-izakaya-san-francisco',
-                  'name': 'Shizen Vegan Sushi Bar & Izakaya',
-                  'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/-1BWnyjrsDmTmXH_3wZl_w/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/shizen-vegan-sushi-bar-and-izakaya-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 1684,
-                  'categories': [
-                    {
-                      'alias': 'sushi',
-                      'title': 'Sushi Bars'
-                    },
-                    {
-                      'alias': 'vegan',
-                      'title': 'Vegan'
-                    },
-                    {
-                      'alias': 'izakaya',
-                      'title': 'Izakaya'
-                    }
-                  ],
-                  'rating': 4.5,
-                  'coordinates': {
-                    'latitude': 37.768326,
-                    'longitude': -122.421682
-                  },
-                  'transactions': [],
-                  'price': '$$',
-                  'location': {
-                    'address1': '370 14th St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94103',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '370 14th St',
-                      'San Francisco, CA 94103'
-                    ]
-                  },
-                  'phone': '+14156785767',
-                  'display_phone': '(415) 678-5767',
-                  'distance': 146.24362926075153
-                },
-                {
-                  'id': 'lJAGnYzku5zSaLnQ_T6_GQ',
-                  'alias': 'brendas-french-soul-food-san-francisco-5',
-                  'name': 'Brenda\'s French Soul Food',
-                  'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/sNIJnePGDenUOyewsD8tLg/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/brendas-french-soul-food-san-francisco-5?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 11064,
-                  'categories': [
-                    {
-                      'alias': 'breakfast_brunch',
-                      'title': 'Breakfast & Brunch'
-                    },
-                    {
-                      'alias': 'southern',
-                      'title': 'Southern'
-                    },
-                    {
-                      'alias': 'cajun',
-                      'title': 'Cajun/Creole'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.7829016035273,
-                    'longitude': -122.419043442957
-                  },
-                  'transactions': [
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '652 Polk St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94102',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '652 Polk St',
-                      'San Francisco, CA 94102'
-                    ]
-                  },
-                  'phone': '+14153458100',
-                  'display_phone': '(415) 345-8100',
-                  'distance': 1783.3439697274714
-                },
-                {
-                  'id': 'ciEDsTWhajcdL3KuJqBRlw',
-                  'alias': 'espetus-brazilian-steak-house-san-francisco',
-                  'name': 'Espetus Brazilian Steak House',
-                  'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/F9G1pFFitfi9F4rJw_nrpQ/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/espetus-brazilian-steak-house-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 3450,
-                  'categories': [
-                    {
-                      'alias': 'steak',
-                      'title': 'Steakhouses'
-                    },
-                    {
-                      'alias': 'latin',
-                      'title': 'Latin American'
-                    },
-                    {
-                      'alias': 'brazilian',
-                      'title': 'Brazilian'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.7733327504928,
-                    'longitude': -122.422131667494
-                  },
-                  'transactions': [
-                    'restaurant_reservation',
-                    'delivery'
-                  ],
-                  'price': '$$$',
-                  'location': {
-                    'address1': '1686 Market St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94102',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '1686 Market St',
-                      'San Francisco, CA 94102'
-                    ]
-                  },
-                  'phone': '+14155528792',
-                  'display_phone': '(415) 552-8792',
-                  'distance': 702.7430555921871
-                },
-                {
-                  'id': 'XQLmEdXoMzOpffwoFaBtaQ',
-                  'alias': 'kitchen-story-san-francisco',
-                  'name': 'Kitchen Story',
-                  'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/XIhdtd0fB2P_v_qhh1hWbg/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/kitchen-story-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 3453,
-                  'categories': [
-                    {
-                      'alias': 'breakfast_brunch',
-                      'title': 'Breakfast & Brunch'
-                    },
-                    {
-                      'alias': 'asianfusion',
-                      'title': 'Asian Fusion'
-                    },
-                    {
-                      'alias': 'newamerican',
-                      'title': 'American (New)'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.7642352,
-                    'longitude': -122.4306936
-                  },
-                  'transactions': [
-                    'restaurant_reservation',
-                    'pickup',
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '3499 16th St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94114',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '3499 16th St',
-                      'San Francisco, CA 94114'
-                    ]
-                  },
-                  'phone': '+14155254905',
-                  'display_phone': '(415) 525-4905',
-                  'distance': 838.4372851187262
-                },
-                {
-                  'id': 'n6L5VIGunR51-D55C-eYeQ',
-                  'alias': 'foreign-cinema-san-francisco',
-                  'name': 'Foreign Cinema',
-                  'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/cw5y2LSOIE-EVNjKK_d7SQ/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/foreign-cinema-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 4897,
-                  'categories': [
-                    {
-                      'alias': 'breakfast_brunch',
-                      'title': 'Breakfast & Brunch'
-                    },
-                    {
-                      'alias': 'mediterranean',
-                      'title': 'Mediterranean'
-                    },
-                    {
-                      'alias': 'cocktailbars',
-                      'title': 'Cocktail Bars'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.75637,
-                    'longitude': -122.41925
-                  },
-                  'transactions': [
-                    'delivery'
-                  ],
-                  'price': '$$$',
-                  'location': {
-                    'address1': '2534 Mission St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94110',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '2534 Mission St',
-                      'San Francisco, CA 94110'
-                    ]
-                  },
-                  'phone': '+14156487600',
-                  'display_phone': '(415) 648-7600',
-                  'distance': 1201.9047187694337
-                },
-                {
-                  'id': 'E8RJkjfdcwgtyoPMjQ_Olg',
-                  'alias': 'four-barrel-coffee-san-francisco',
-                  'name': 'Four Barrel Coffee',
-                  'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/NBm7cKsFwecEm82oP_-qUg/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/four-barrel-coffee-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 2096,
-                  'categories': [
-                    {
-                      'alias': 'coffee',
-                      'title': 'Coffee & Tea'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.7670169511878,
-                    'longitude': -122.42184275
-                  },
-                  'transactions': [
-                    'delivery'
-                  ],
-                  'price': '$',
-                  'location': {
-                    'address1': '375 Valencia St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94103',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '375 Valencia St',
-                      'San Francisco, CA 94103'
-                    ]
-                  },
-                  'phone': '+14158964289',
-                  'display_phone': '(415) 896-4289',
-                  'distance': 0.0
-                },
-                {
-                  'id': 'OoyK7MyuPtKOQAXmEmyM5g',
-                  'alias': 'little-star-pizza-san-francisco-4',
-                  'name': 'Little Star Pizza',
-                  'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/T7AGG4yUrbN4KFj097VOdA/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/little-star-pizza-san-francisco-4?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 2118,
-                  'categories': [
-                    {
-                      'alias': 'pizza',
-                      'title': 'Pizza'
-                    },
-                    {
-                      'alias': 'bars',
-                      'title': 'Bars'
-                    },
-                    {
-                      'alias': 'italian',
-                      'title': 'Italian'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.7662598870271,
-                    'longitude': -122.422120973633
-                  },
-                  'transactions': [
-                    'pickup',
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '400 Valencia St',
-                    'address2': null,
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94103',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '400 Valencia St',
-                      'San Francisco, CA 94103'
-                    ]
-                  },
-                  'phone': '+14155517827',
-                  'display_phone': '(415) 551-7827',
-                  'distance': 87.66208808703502
-                },
-                {
-                  'id': 'Tf_27JvnneEx0Tz79UwShg',
-                  'alias': 'mission-dolores-park-san-francisco',
-                  'name': 'Mission Dolores Park',
-                  'image_url': 'https://s3-media1.fl.yelpcdn.com/bphoto/MDabhC69akFE2o21s7gtEg/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/mission-dolores-park-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 1480,
-                  'categories': [
-                    {
-                      'alias': 'parks',
-                      'title': 'Parks'
-                    },
-                    {
-                      'alias': 'playgrounds',
-                      'title': 'Playgrounds'
-                    },
-                    {
-                      'alias': 'basketballcourts',
-                      'title': 'Basketball Courts'
-                    }
-                  ],
-                  'rating': 4.5,
-                  'coordinates': {
-                    'latitude': 37.759764,
-                    'longitude': -122.427052
-                  },
-                  'transactions': [],
-                  'location': {
-                    'address1': '19th & Dolores St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94114',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '19th & Dolores St',
-                      'San Francisco, CA 94114'
-                    ]
-                  },
-                  'phone': '+14158312700',
-                  'display_phone': '(415) 831-2700',
-                  'distance': 927.4239547561216
-                },
-                {
-                  'id': 'ofFgj0sd8iDQunY00hhDVQ',
-                  'alias': 'garden-creamery-san-francisco-2',
-                  'name': 'Garden Creamery',
-                  'image_url': 'https://s3-media2.fl.yelpcdn.com/bphoto/VUfUgl5k7kAfmzjeb95_UA/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/garden-creamery-san-francisco-2?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 1000,
-                  'categories': [
-                    {
-                      'alias': 'icecream',
-                      'title': 'Ice Cream & Frozen Yogurt'
-                    },
-                    {
-                      'alias': 'foodtrucks',
-                      'title': 'Food Trucks'
-                    }
-                  ],
-                  'rating': 4.5,
-                  'coordinates': {
-                    'latitude': 37.75869,
-                    'longitude': -122.420435
-                  },
-                  'transactions': [
-                    'delivery'
-                  ],
-                  'price': '$',
-                  'location': {
-                    'address1': '3566 20th St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94110',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '3566 20th St',
-                      'San Francisco, CA 94110'
-                    ]
-                  },
-                  'phone': '+18082246626',
-                  'display_phone': '(808) 224-6626',
-                  'distance': 934.1466241851346
-                },
-                {
-                  'id': 'DGyoVB9PdI9_jw0CNi_OPg',
-                  'alias': 'suppenküche-san-francisco-2',
-                  'name': 'Suppenküche',
-                  'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/HAumhGEjTcqstgie00Fjag/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/suppenk%C3%BCche-san-francisco-2?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 3149,
-                  'categories': [
-                    {
-                      'alias': 'german',
-                      'title': 'German'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.7762603759766,
-                    'longitude': -122.426391601562
-                  },
-                  'transactions': [
-                    'pickup',
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '525 Laguna St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94102',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '525 Laguna St',
-                      'San Francisco, CA 94102'
-                    ]
-                  },
-                  'phone': '+14152529289',
-                  'display_phone': '(415) 252-9289',
-                  'distance': 1101.6636759232877
-                },
-                {
-                  'id': '8kck3-K4zYKTJbJko0JlXQ',
-                  'alias': 'farmhouse-kitchen-thai-cuisine-san-francisco',
-                  'name': 'Farmhouse Kitchen Thai Cuisine',
-                  'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/5LqW8X5GqbAp_DtRrcx4_Q/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/farmhouse-kitchen-thai-cuisine-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 2708,
-                  'categories': [
-                    {
-                      'alias': 'thai',
-                      'title': 'Thai'
-                    },
-                    {
-                      'alias': 'comfortfood',
-                      'title': 'Comfort Food'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.760192883932795,
-                    'longitude': -122.4114188698492
-                  },
-                  'transactions': [
-                    'restaurant_reservation',
-                    'pickup',
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '710 Florida St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94110',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '710 Florida St',
-                      'San Francisco, CA 94110'
-                    ]
-                  },
-                  'phone': '+14158142920',
-                  'display_phone': '(415) 814-2920',
-                  'distance': 1189.7031094718345
-                },
-                {
-                  'id': '1hMD7RQogPDWpE-p3LKjXA',
-                  'alias': 'loló-san-francisco-4',
-                  'name': 'Loló',
-                  'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/9fPMGo5daNzQ41ckzW4CZg/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/lol%C3%B3-san-francisco-4?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 2216,
-                  'categories': [
-                    {
-                      'alias': 'mexican',
-                      'title': 'Mexican'
-                    },
-                    {
-                      'alias': 'tapasmallplates',
-                      'title': 'Tapas/Small Plates'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.7573462,
-                    'longitude': -122.4214034
-                  },
-                  'transactions': [
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '974 Valencia St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94110',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '974 Valencia St',
-                      'San Francisco, CA 94110'
-                    ]
-                  },
-                  'phone': '+14156435656',
-                  'display_phone': '(415) 643-5656',
-                  'distance': 1076.0306135664114
-                },
-                {
-                  'id': 'bai6umLcCNy9cXql0Js2RQ',
-                  'alias': 'pizzeria-delfina-mission-san-francisco',
-                  'name': 'Pizzeria Delfina - Mission',
-                  'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/mXfuUNiaoGaeg7ra4IgcJQ/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/pizzeria-delfina-mission-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 2294,
-                  'categories': [
-                    {
-                      'alias': 'pizza',
-                      'title': 'Pizza'
-                    },
-                    {
-                      'alias': 'italian',
-                      'title': 'Italian'
-                    },
-                    {
-                      'alias': 'bars',
-                      'title': 'Bars'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.7614143,
-                    'longitude': -122.4242316
-                  },
-                  'transactions': [
-                    'pickup',
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '3611 18th St',
-                    'address2': null,
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94110',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '3611 18th St',
-                      'San Francisco, CA 94110'
-                    ]
-                  },
-                  'phone': '+14154376800',
-                  'display_phone': '(415) 437-6800',
-                  'distance': 657.4240897943685
-                },
-                {
-                  'id': 'g2ktKLz4rNTi8T5WUEUYuw',
-                  'alias': 'the-monks-kettle-san-francisco',
-                  'name': 'The Monk\'s Kettle',
-                  'image_url': 'https://s3-media1.fl.yelpcdn.com/bphoto/Cvskqwgv0j2FeC4SINnT3g/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/the-monks-kettle-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 2215,
-                  'categories': [
-                    {
-                      'alias': 'bars',
-                      'title': 'Bars'
-                    },
-                    {
-                      'alias': 'gastropubs',
-                      'title': 'Gastropubs'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.7647290879634,
-                    'longitude': -122.42297490884
-                  },
-                  'transactions': [
-                    'pickup',
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '3141 16th St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94103',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '3141 16th St',
-                      'San Francisco, CA 94103'
-                    ]
-                  },
-                  'phone': '+14158659523',
-                  'display_phone': '(415) 865-9523',
-                  'distance': 273.1713170286127
-                },
-                {
-                  'id': '4KfQnlcSu4bbTqnvGdGptw',
-                  'alias': 'beretta-san-francisco',
-                  'name': 'Beretta',
-                  'image_url': 'https://s3-media1.fl.yelpcdn.com/bphoto/OnjVYibgMoQRyRNuqZGCIA/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/beretta-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 3680,
-                  'categories': [
-                    {
-                      'alias': 'italian',
-                      'title': 'Italian'
-                    },
-                    {
-                      'alias': 'pizza',
-                      'title': 'Pizza'
-                    },
-                    {
-                      'alias': 'breakfast_brunch',
-                      'title': 'Breakfast & Brunch'
-                    }
-                  ],
-                  'rating': 4.0,
-                  'coordinates': {
-                    'latitude': 37.753869,
-                    'longitude': -122.420611
-                  },
-                  'transactions': [
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '1199 Valencia St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94110',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '1199 Valencia St',
-                      'San Francisco, CA 94110'
-                    ]
-                  },
-                  'phone': '+14156951199',
-                  'display_phone': '(415) 695-1199',
-                  'distance': 1468.4047538494176
-                },
-                {
-                  'id': 'EFefgQdk_19WxQXvVtwEog',
-                  'alias': 'blue-bottle-coffee-san-francisco-8',
-                  'name': 'Blue Bottle Coffee',
-                  'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/7Yklx9jkwBwLAjBO4Q1Kzg/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/blue-bottle-coffee-san-francisco-8?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 1672,
-                  'categories': [
-                    {
-                      'alias': 'coffee',
-                      'title': 'Coffee & Tea'
-                    }
-                  ],
-                  'rating': 4.5,
-                  'coordinates': {
-                    'latitude': 37.77638,
-                    'longitude': -122.423211
-                  },
-                  'transactions': [
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '315 Linden St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94102',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '315 Linden St',
-                      'San Francisco, CA 94102'
-                    ]
-                  },
-                  'phone': '+15106533394',
-                  'display_phone': '(510) 653-3394',
-                  'distance': 1048.0452039794227
-                },
-                {
-                  'id': '9yM20-7fj4LMrOO30nqkBw',
-                  'alias': 'l-ardoise-bistro-san-francisco',
-                  'name': 'L’Ardoise Bistro',
-                  'image_url': 'https://s3-media3.fl.yelpcdn.com/bphoto/dhXuKb4LhkUmQdX8yhZMzA/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/l-ardoise-bistro-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 1283,
-                  'categories': [
-                    {
-                      'alias': 'french',
-                      'title': 'French'
-                    },
-                    {
-                      'alias': 'wine_bars',
-                      'title': 'Wine Bars'
-                    },
-                    {
-                      'alias': 'desserts',
-                      'title': 'Desserts'
-                    }
-                  ],
-                  'rating': 4.5,
-                  'coordinates': {
-                    'latitude': 37.7665241,
-                    'longitude': -122.4331385
-                  },
-                  'transactions': [
-                    'pickup',
-                    'delivery'
-                  ],
-                  'price': '$$$',
-                  'location': {
-                    'address1': '151 Noe St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94114',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '151 Noe St',
-                      'San Francisco, CA 94114'
-                    ]
-                  },
-                  'phone': '+14154372600',
-                  'display_phone': '(415) 437-2600',
-                  'distance': 980.9572296207709
-                },
-                {
-                  'id': 'cL0q9S4bqwpbAN9ZKh-Zeg',
-                  'alias': 'nara-restaurant-and-sake-bar-san-francisco',
-                  'name': 'Nara Restaurant & Sake Bar',
-                  'image_url': 'https://s3-media1.fl.yelpcdn.com/bphoto/7zzlpJKaC9bndjuo2UIr6g/o.jpg',
-                  'is_closed': false,
-                  'url': 'https://www.yelp.com/biz/nara-restaurant-and-sake-bar-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
-                  'review_count': 1186,
-                  'categories': [
-                    {
-                      'alias': 'japanese',
-                      'title': 'Japanese'
-                    },
-                    {
-                      'alias': 'sushi',
-                      'title': 'Sushi Bars'
-                    }
-                  ],
-                  'rating': 4.5,
-                  'coordinates': {
-                    'latitude': 37.7721665317965,
-                    'longitude': -122.430675700307
-                  },
-                  'transactions': [
-                    'restaurant_reservation',
-                    'pickup',
-                    'delivery'
-                  ],
-                  'price': '$$',
-                  'location': {
-                    'address1': '518 Haight St',
-                    'address2': '',
-                    'address3': '',
-                    'city': 'San Francisco',
-                    'zip_code': '94117',
-                    'country': 'US',
-                    'state': 'CA',
-                    'display_address': [
-                      '518 Haight St',
-                      'San Francisco, CA 94117'
-                    ]
-                  },
-                  'phone': '+14156386124',
-                  'display_phone': '(415) 638-6124',
-                  'distance': 964.7089996024089
-                }
-              ],
-              'total': 4200,
-              'region': {
-                'center': {
-                  'longitude': -122.42184275,
-                  'latitude': 37.7670169511878
-                }
+    test('returns formatted reviews information when given an unformattted array of weather data', async () => {
+      const reviewObject = {
+        businesses: [
+          {
+            id: 'wGl_DyNxSv8KUtYgiuLhmA',
+            alias: 'bi-rite-creamery-san-francisco',
+            name: 'Bi-Rite Creamery',
+            image_url:
+              'https://s3-media2.fl.yelpcdn.com/bphoto/iPNJKlOQ7-eyqa4Yv2r2BA/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/bi-rite-creamery-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 9653,
+            categories: [
+              {
+                alias: 'icecream',
+                title: 'Ice Cream & Frozen Yogurt'
               }
-            };
-            
-    
+            ],
+            rating: 4.5,
+            coordinates: {
+              latitude: 37.761591,
+              longitude: -122.425717
+            },
+            transactions: ['delivery'],
+            price: '$',
+            location: {
+              address1: '3692 18th St',
+              address2: null,
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['3692 18th St', 'San Francisco, CA 94110']
+            },
+            phone: '+14156265600',
+            display_phone: '(415) 626-5600',
+            distance: 2.2367390261918618e-9
+          },
+          {
+            id: 'ri7UUYmx21AgSpRsf4-9QA',
+            alias: 'tartine-bakery-and-cafe-san-francisco',
+            name: 'Tartine Bakery & Cafe',
+            image_url:
+              'https://s3-media2.fl.yelpcdn.com/bphoto/nPUUXYVVa3CHJh5yzH8Xnw/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/tartine-bakery-and-cafe-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 8036,
+            categories: [
+              {
+                alias: 'bakeries',
+                title: 'Bakeries'
+              },
+              {
+                alias: 'cafes',
+                title: 'Cafes'
+              },
+              {
+                alias: 'desserts',
+                title: 'Desserts'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.76131,
+              longitude: -122.42431
+            },
+            transactions: ['delivery'],
+            price: '$$',
+            location: {
+              address1: '600 Guerrero St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['600 Guerrero St', 'San Francisco, CA 94110']
+            },
+            phone: '+14154872600',
+            display_phone: '(415) 487-2600',
+            distance: 143.7539691377374
+          },
+          {
+            id: 'Tf_27JvnneEx0Tz79UwShg',
+            alias: 'mission-dolores-park-san-francisco',
+            name: 'Mission Dolores Park',
+            image_url:
+              'https://s3-media1.fl.yelpcdn.com/bphoto/MDabhC69akFE2o21s7gtEg/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/mission-dolores-park-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 1480,
+            categories: [
+              {
+                alias: 'parks',
+                title: 'Parks'
+              },
+              {
+                alias: 'playgrounds',
+                title: 'Playgrounds'
+              },
+              {
+                alias: 'basketballcourts',
+                title: 'Basketball Courts'
+              }
+            ],
+            rating: 4.5,
+            coordinates: {
+              latitude: 37.759764,
+              longitude: -122.427052
+            },
+            transactions: [],
+            location: {
+              address1: '19th & Dolores St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94114',
+              country: 'US',
+              state: 'CA',
+              display_address: ['19th & Dolores St', 'San Francisco, CA 94114']
+            },
+            phone: '+14158312700',
+            display_phone: '(415) 831-2700',
+            distance: 234.61409665112538
+          },
+          {
+            id: 'SGRmnarrNuVEsAjYdEoA0w',
+            alias: 'el-farolito-san-francisco-2',
+            name: 'El Farolito',
+            image_url:
+              'https://s3-media1.fl.yelpcdn.com/bphoto/gcC2Uwtu5raP13D3jWYm0Q/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/el-farolito-san-francisco-2?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 4991,
+            categories: [
+              {
+                alias: 'mexican',
+                title: 'Mexican'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.75265,
+              longitude: -122.41812
+            },
+            transactions: ['delivery'],
+            price: '$',
+            location: {
+              address1: '2779 Mission St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['2779 Mission St', 'San Francisco, CA 94110']
+            },
+            phone: '+14158247877',
+            display_phone: '(415) 824-7877',
+            distance: 1192.3106847316956
+          },
+          {
+            id: 'n6L5VIGunR51-D55C-eYeQ',
+            alias: 'foreign-cinema-san-francisco',
+            name: 'Foreign Cinema',
+            image_url:
+              'https://s3-media3.fl.yelpcdn.com/bphoto/cw5y2LSOIE-EVNjKK_d7SQ/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/foreign-cinema-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 4898,
+            categories: [
+              {
+                alias: 'breakfast_brunch',
+                title: 'Breakfast & Brunch'
+              },
+              {
+                alias: 'mediterranean',
+                title: 'Mediterranean'
+              },
+              {
+                alias: 'cocktailbars',
+                title: 'Cocktail Bars'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.75637,
+              longitude: -122.41925
+            },
+            transactions: ['delivery'],
+            price: '$$$',
+            location: {
+              address1: '2534 Mission St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['2534 Mission St', 'San Francisco, CA 94110']
+            },
+            phone: '+14156487600',
+            display_phone: '(415) 648-7600',
+            distance: 813.3239953572661
+          },
+          {
+            id: 'XQLmEdXoMzOpffwoFaBtaQ',
+            alias: 'kitchen-story-san-francisco',
+            name: 'Kitchen Story',
+            image_url:
+              'https://s3-media3.fl.yelpcdn.com/bphoto/XIhdtd0fB2P_v_qhh1hWbg/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/kitchen-story-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 3453,
+            categories: [
+              {
+                alias: 'breakfast_brunch',
+                title: 'Breakfast & Brunch'
+              },
+              {
+                alias: 'asianfusion',
+                title: 'Asian Fusion'
+              },
+              {
+                alias: 'newamerican',
+                title: 'American (New)'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.7642352,
+              longitude: -122.4306936
+            },
+            transactions: ['restaurant_reservation', 'delivery', 'pickup'],
+            price: '$$',
+            location: {
+              address1: '3499 16th St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94114',
+              country: 'US',
+              state: 'CA',
+              display_address: ['3499 16th St', 'San Francisco, CA 94114']
+            },
+            phone: '+14155254905',
+            display_phone: '(415) 525-4905',
+            distance: 522.3061118400777
+          },
+          {
+            id: 'ofFgj0sd8iDQunY00hhDVQ',
+            alias: 'garden-creamery-san-francisco-2',
+            name: 'Garden Creamery',
+            image_url:
+              'https://s3-media2.fl.yelpcdn.com/bphoto/VUfUgl5k7kAfmzjeb95_UA/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/garden-creamery-san-francisco-2?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 1000,
+            categories: [
+              {
+                alias: 'icecream',
+                title: 'Ice Cream & Frozen Yogurt'
+              },
+              {
+                alias: 'foodtrucks',
+                title: 'Food Trucks'
+              }
+            ],
+            rating: 4.5,
+            coordinates: {
+              latitude: 37.75869,
+              longitude: -122.420435
+            },
+            transactions: ['delivery'],
+            price: '$',
+            location: {
+              address1: '3566 20th St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['3566 20th St', 'San Francisco, CA 94110']
+            },
+            phone: '+18082246626',
+            display_phone: '(808) 224-6626',
+            distance: 565.3851049966022
+          },
+          {
+            id: 'bai6umLcCNy9cXql0Js2RQ',
+            alias: 'pizzeria-delfina-mission-san-francisco',
+            name: 'Pizzeria Delfina - Mission',
+            image_url:
+              'https://s3-media3.fl.yelpcdn.com/bphoto/mXfuUNiaoGaeg7ra4IgcJQ/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/pizzeria-delfina-mission-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 2294,
+            categories: [
+              {
+                alias: 'pizza',
+                title: 'Pizza'
+              },
+              {
+                alias: 'italian',
+                title: 'Italian'
+              },
+              {
+                alias: 'bars',
+                title: 'Bars'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.7614143,
+              longitude: -122.4242316
+            },
+            transactions: ['delivery', 'pickup'],
+            price: '$$',
+            location: {
+              address1: '3611 18th St',
+              address2: null,
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['3611 18th St', 'San Francisco, CA 94110']
+            },
+            phone: '+14154376800',
+            display_phone: '(415) 437-6800',
+            distance: 132.04688231187092
+          },
+          {
+            id: 'CYttYTEiQuhSfo3SEh79fA',
+            alias: 'shizen-vegan-sushi-bar-and-izakaya-san-francisco',
+            name: 'Shizen Vegan Sushi Bar & Izakaya',
+            image_url:
+              'https://s3-media4.fl.yelpcdn.com/bphoto/-1BWnyjrsDmTmXH_3wZl_w/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/shizen-vegan-sushi-bar-and-izakaya-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 1684,
+            categories: [
+              {
+                alias: 'sushi',
+                title: 'Sushi Bars'
+              },
+              {
+                alias: 'vegan',
+                title: 'Vegan'
+              },
+              {
+                alias: 'izakaya',
+                title: 'Izakaya'
+              }
+            ],
+            rating: 4.5,
+            coordinates: {
+              latitude: 37.768326,
+              longitude: -122.421682
+            },
+            transactions: [],
+            price: '$$',
+            location: {
+              address1: '370 14th St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94103',
+              country: 'US',
+              state: 'CA',
+              display_address: ['370 14th St', 'San Francisco, CA 94103']
+            },
+            phone: '+14156785767',
+            display_phone: '(415) 678-5767',
+            distance: 828.6435535849994
+          },
+          {
+            id: '1hMD7RQogPDWpE-p3LKjXA',
+            alias: 'loló-san-francisco-4',
+            name: 'Loló',
+            image_url:
+              'https://s3-media4.fl.yelpcdn.com/bphoto/9fPMGo5daNzQ41ckzW4CZg/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/lol%C3%B3-san-francisco-4?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 2216,
+            categories: [
+              {
+                alias: 'mexican',
+                title: 'Mexican'
+              },
+              {
+                alias: 'tapasmallplates',
+                title: 'Tapas/Small Plates'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.7573462,
+              longitude: -122.4214034
+            },
+            transactions: ['delivery'],
+            price: '$$',
+            location: {
+              address1: '974 Valencia St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['974 Valencia St', 'San Francisco, CA 94110']
+            },
+            phone: '+14156435656',
+            display_phone: '(415) 643-5656',
+            distance: 605.4590312502615
+          },
+          {
+            id: '4KfQnlcSu4bbTqnvGdGptw',
+            alias: 'beretta-san-francisco',
+            name: 'Beretta',
+            image_url:
+              'https://s3-media1.fl.yelpcdn.com/bphoto/OnjVYibgMoQRyRNuqZGCIA/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/beretta-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 3680,
+            categories: [
+              {
+                alias: 'italian',
+                title: 'Italian'
+              },
+              {
+                alias: 'pizza',
+                title: 'Pizza'
+              },
+              {
+                alias: 'breakfast_brunch',
+                title: 'Breakfast & Brunch'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.753869,
+              longitude: -122.420611
+            },
+            transactions: ['delivery'],
+            price: '$$',
+            location: {
+              address1: '1199 Valencia St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['1199 Valencia St', 'San Francisco, CA 94110']
+            },
+            phone: '+14156951199',
+            display_phone: '(415) 695-1199',
+            distance: 967.953538075765
+          },
+          {
+            id: 'JARsJVKLPgs_yC3cwDnp7g',
+            alias: 'la-taqueria-san-francisco-2',
+            name: 'La Taqueria',
+            image_url:
+              'https://s3-media1.fl.yelpcdn.com/bphoto/7LqVKYVg2GdEFKI2CFL4cA/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/la-taqueria-san-francisco-2?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 4172,
+            categories: [
+              {
+                alias: 'mexican',
+                title: 'Mexican'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.75088,
+              longitude: -122.41805
+            },
+            transactions: ['delivery'],
+            price: '$',
+            location: {
+              address1: '2889 Mission St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['2889 Mission St', 'San Francisco, CA 94110']
+            },
+            phone: '+14152857117',
+            display_phone: '(415) 285-7117',
+            distance: 1363.9665911306222
+          },
+          {
+            id: 'lJAGnYzku5zSaLnQ_T6_GQ',
+            alias: 'brendas-french-soul-food-san-francisco-5',
+            name: "Brenda's French Soul Food",
+            image_url:
+              'https://s3-media3.fl.yelpcdn.com/bphoto/sNIJnePGDenUOyewsD8tLg/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/brendas-french-soul-food-san-francisco-5?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 11064,
+            categories: [
+              {
+                alias: 'breakfast_brunch',
+                title: 'Breakfast & Brunch'
+              },
+              {
+                alias: 'southern',
+                title: 'Southern'
+              },
+              {
+                alias: 'cajun',
+                title: 'Cajun/Creole'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.7829016035273,
+              longitude: -122.419043442957
+            },
+            transactions: ['delivery'],
+            price: '$$',
+            location: {
+              address1: '652 Polk St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94102',
+              country: 'US',
+              state: 'CA',
+              display_address: ['652 Polk St', 'San Francisco, CA 94102']
+            },
+            phone: '+14153458100',
+            display_phone: '(415) 345-8100',
+            distance: 2441.1470385184384
+          },
+          {
+            id: 'wEpiKz--Z2b1q_FSCCNiow',
+            alias: 'lolinda-san-francisco',
+            name: 'Lolinda',
+            image_url:
+              'https://s3-media2.fl.yelpcdn.com/bphoto/M8J3ehcOIRRI8ys1Q0hxtw/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/lolinda-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 2013,
+            categories: [
+              {
+                alias: 'steak',
+                title: 'Steakhouses'
+              },
+              {
+                alias: 'tapasmallplates',
+                title: 'Tapas/Small Plates'
+              },
+              {
+                alias: 'latin',
+                title: 'Latin American'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.7566658,
+              longitude: -122.419116
+            },
+            transactions: ['delivery'],
+            price: '$$$',
+            location: {
+              address1: '2518 Mission St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['2518 Mission St', 'San Francisco, CA 94110']
+            },
+            phone: '+14155506970',
+            display_phone: '(415) 550-6970',
+            distance: 797.9139761919113
+          },
+          {
+            id: 'aVskw5NKrs7ibAQ54E_bZw',
+            alias: 'u-dessert-story-san-francisco-5',
+            name: 'U :Dessert Story',
+            image_url:
+              'https://s3-media1.fl.yelpcdn.com/bphoto/El0ZEgoggzydP9LqCT0SLg/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/u-dessert-story-san-francisco-5?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 1490,
+            categories: [
+              {
+                alias: 'desserts',
+                title: 'Desserts'
+              }
+            ],
+            rating: 4.5,
+            coordinates: {
+              latitude: 37.7642642124321,
+              longitude: -122.430517340788
+            },
+            transactions: ['restaurant_reservation', 'delivery', 'pickup'],
+            price: '$$',
+            location: {
+              address1: '3489 16th St',
+              address2: '',
+              address3: null,
+              city: 'San Francisco',
+              zip_code: '94114',
+              country: 'US',
+              state: 'CA',
+              display_address: ['3489 16th St', 'San Francisco, CA 94114']
+            },
+            phone: '+14157963633',
+            display_phone: '(415) 796-3633',
+            distance: 516.157771354776
+          },
+          {
+            id: 'ciEDsTWhajcdL3KuJqBRlw',
+            alias: 'espetus-brazilian-steak-house-san-francisco',
+            name: 'Espetus Brazilian Steak House',
+            image_url:
+              'https://s3-media4.fl.yelpcdn.com/bphoto/F9G1pFFitfi9F4rJw_nrpQ/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/espetus-brazilian-steak-house-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 3449,
+            categories: [
+              {
+                alias: 'steak',
+                title: 'Steakhouses'
+              },
+              {
+                alias: 'latin',
+                title: 'Latin American'
+              },
+              {
+                alias: 'brazilian',
+                title: 'Brazilian'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.7733327504928,
+              longitude: -122.422131667494
+            },
+            transactions: ['restaurant_reservation', 'delivery'],
+            price: '$$$',
+            location: {
+              address1: '1686 Market St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94102',
+              country: 'US',
+              state: 'CA',
+              display_address: ['1686 Market St', 'San Francisco, CA 94102']
+            },
+            phone: '+14155528792',
+            display_phone: '(415) 552-8792',
+            distance: 1343.1185473317478
+          },
+          {
+            id: '76smcUUGRvq3k1MVPUXbnA',
+            alias: 'mitchells-ice-cream-san-francisco',
+            name: "Mitchell's Ice Cream",
+            image_url:
+              'https://s3-media2.fl.yelpcdn.com/bphoto/xBdlIh2tJUz8zr4ajXwKfg/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/mitchells-ice-cream-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 4114,
+            categories: [
+              {
+                alias: 'icecream',
+                title: 'Ice Cream & Frozen Yogurt'
+              },
+              {
+                alias: 'customcakes',
+                title: 'Custom Cakes'
+              }
+            ],
+            rating: 4.5,
+            coordinates: {
+              latitude: 37.744221,
+              longitude: -122.422791
+            },
+            transactions: ['delivery', 'pickup'],
+            price: '$',
+            location: {
+              address1: '688 San Jose Ave',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['688 San Jose Ave', 'San Francisco, CA 94110']
+            },
+            phone: '+14156482300',
+            display_phone: '(415) 648-2300',
+            distance: 1948.5093701777848
+          },
+          {
+            id: 'dMlsQsPU8Y_oiPYC5hHi2A',
+            alias: 'frances-san-francisco',
+            name: 'Frances',
+            image_url:
+              'https://s3-media2.fl.yelpcdn.com/bphoto/mJRJodU9-9H4Hs_-p6qj8g/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/frances-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 1500,
+            categories: [
+              {
+                alias: 'newamerican',
+                title: 'American (New)'
+              },
+              {
+                alias: 'desserts',
+                title: 'Desserts'
+              },
+              {
+                alias: 'wine_bars',
+                title: 'Wine Bars'
+              }
+            ],
+            rating: 4.5,
+            coordinates: {
+              latitude: 37.7627220154927,
+              longitude: -122.432276324008
+            },
+            transactions: ['delivery'],
+            price: '$$$',
+            location: {
+              address1: '3870 17th St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94114',
+              country: 'US',
+              state: 'CA',
+              display_address: ['3870 17th St', 'San Francisco, CA 94114']
+            },
+            phone: '+14156213870',
+            display_phone: '(415) 621-3870',
+            distance: 590.1604832757148
+          },
+          {
+            id: '47OC_X6KkiDDQ4jwoCUjFg',
+            alias: 'humphry-slocombe-ice-cream-san-francisco',
+            name: 'Humphry Slocombe Ice Cream',
+            image_url:
+              'https://s3-media1.fl.yelpcdn.com/bphoto/N9XikmqttZy5StpPxkJing/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/humphry-slocombe-ice-cream-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 3404,
+            categories: [
+              {
+                alias: 'icecream',
+                title: 'Ice Cream & Frozen Yogurt'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.75279,
+              longitude: -122.4122
+            },
+            transactions: ['delivery'],
+            price: '$',
+            location: {
+              address1: '2790A Harrison St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['2790A Harrison St', 'San Francisco, CA 94110']
+            },
+            phone: '+14155506971',
+            display_phone: '(415) 550-6971',
+            distance: 1540.4078308826167
+          },
+          {
+            id: 'AfqpSxetSUMc63ZPCfbneg',
+            alias: 'craftsman-and-wolves-san-francisco',
+            name: 'Craftsman and Wolves',
+            image_url:
+              'https://s3-media2.fl.yelpcdn.com/bphoto/G9ukcdVO74PJcLSlxwDHBQ/o.jpg',
+            is_closed: false,
+            url:
+              'https://www.yelp.com/biz/craftsman-and-wolves-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ',
+            review_count: 1565,
+            categories: [
+              {
+                alias: 'bakeries',
+                title: 'Bakeries'
+              },
+              {
+                alias: 'cakeshop',
+                title: 'Patisserie/Cake Shop'
+              },
+              {
+                alias: 'coffee',
+                title: 'Coffee & Tea'
+              }
+            ],
+            rating: 4.0,
+            coordinates: {
+              latitude: 37.76090610988245,
+              longitude: -122.42168263228955
+            },
+            transactions: ['delivery', 'pickup'],
+            price: '$$',
+            location: {
+              address1: '746 Valencia St',
+              address2: '',
+              address3: '',
+              city: 'San Francisco',
+              zip_code: '94110',
+              country: 'US',
+              state: 'CA',
+              display_address: ['746 Valencia St', 'San Francisco, CA 94110']
+            },
+            phone: '+14159137713',
+            display_phone: '(415) 913-7713',
+            distance: 362.7345935184126
+          }
+        ],
+        total: 3600,
+        region: {
+          center: {
+            longitude: -122.425717,
+            latitude: 37.761591
+          }
+        }
+      };
+
       const expectation = [
+        {
+          name: 'Bi-Rite Creamery',
+          image_url:
+            'https://s3-media2.fl.yelpcdn.com/bphoto/iPNJKlOQ7-eyqa4Yv2r2BA/o.jpg',
+          price: '$',
+          rating: 4.5,
+          url:
+            'https://www.yelp.com/biz/bi-rite-creamery-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Tartine Bakery & Cafe',
+          image_url:
+            'https://s3-media2.fl.yelpcdn.com/bphoto/nPUUXYVVa3CHJh5yzH8Xnw/o.jpg',
+          price: '$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/tartine-bakery-and-cafe-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Mission Dolores Park',
+          image_url:
+            'https://s3-media1.fl.yelpcdn.com/bphoto/MDabhC69akFE2o21s7gtEg/o.jpg',
+          rating: 4.5,
+          url:
+            'https://www.yelp.com/biz/mission-dolores-park-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'El Farolito',
+          image_url:
+            'https://s3-media1.fl.yelpcdn.com/bphoto/gcC2Uwtu5raP13D3jWYm0Q/o.jpg',
+          price: '$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/el-farolito-san-francisco-2?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Foreign Cinema',
+          image_url:
+            'https://s3-media3.fl.yelpcdn.com/bphoto/cw5y2LSOIE-EVNjKK_d7SQ/o.jpg',
+          price: '$$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/foreign-cinema-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Kitchen Story',
+          image_url:
+            'https://s3-media3.fl.yelpcdn.com/bphoto/XIhdtd0fB2P_v_qhh1hWbg/o.jpg',
+          price: '$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/kitchen-story-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Garden Creamery',
+          image_url:
+            'https://s3-media2.fl.yelpcdn.com/bphoto/VUfUgl5k7kAfmzjeb95_UA/o.jpg',
+          price: '$',
+          rating: 4.5,
+          url:
+            'https://www.yelp.com/biz/garden-creamery-san-francisco-2?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Pizzeria Delfina - Mission',
+          image_url:
+            'https://s3-media3.fl.yelpcdn.com/bphoto/mXfuUNiaoGaeg7ra4IgcJQ/o.jpg',
+          price: '$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/pizzeria-delfina-mission-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Shizen Vegan Sushi Bar & Izakaya',
+          image_url:
+            'https://s3-media4.fl.yelpcdn.com/bphoto/-1BWnyjrsDmTmXH_3wZl_w/o.jpg',
+          price: '$$',
+          rating: 4.5,
+          url:
+            'https://www.yelp.com/biz/shizen-vegan-sushi-bar-and-izakaya-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Loló',
+          image_url:
+            'https://s3-media4.fl.yelpcdn.com/bphoto/9fPMGo5daNzQ41ckzW4CZg/o.jpg',
+          price: '$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/lol%C3%B3-san-francisco-4?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Beretta',
+          image_url:
+            'https://s3-media1.fl.yelpcdn.com/bphoto/OnjVYibgMoQRyRNuqZGCIA/o.jpg',
+          price: '$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/beretta-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'La Taqueria',
+          image_url:
+            'https://s3-media1.fl.yelpcdn.com/bphoto/7LqVKYVg2GdEFKI2CFL4cA/o.jpg',
+          price: '$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/la-taqueria-san-francisco-2?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: "Brenda's French Soul Food",
+          image_url:
+            'https://s3-media3.fl.yelpcdn.com/bphoto/sNIJnePGDenUOyewsD8tLg/o.jpg',
+          price: '$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/brendas-french-soul-food-san-francisco-5?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Lolinda',
+          image_url:
+            'https://s3-media2.fl.yelpcdn.com/bphoto/M8J3ehcOIRRI8ys1Q0hxtw/o.jpg',
+          price: '$$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/lolinda-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'U :Dessert Story',
+          image_url:
+            'https://s3-media1.fl.yelpcdn.com/bphoto/El0ZEgoggzydP9LqCT0SLg/o.jpg',
+          price: '$$',
+          rating: 4.5,
+          url:
+            'https://www.yelp.com/biz/u-dessert-story-san-francisco-5?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Espetus Brazilian Steak House',
+          image_url:
+            'https://s3-media4.fl.yelpcdn.com/bphoto/F9G1pFFitfi9F4rJw_nrpQ/o.jpg',
+          price: '$$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/espetus-brazilian-steak-house-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: "Mitchell's Ice Cream",
+          image_url:
+            'https://s3-media2.fl.yelpcdn.com/bphoto/xBdlIh2tJUz8zr4ajXwKfg/o.jpg',
+          price: '$',
+          rating: 4.5,
+          url:
+            'https://www.yelp.com/biz/mitchells-ice-cream-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Frances',
+          image_url:
+            'https://s3-media2.fl.yelpcdn.com/bphoto/mJRJodU9-9H4Hs_-p6qj8g/o.jpg',
+          price: '$$$',
+          rating: 4.5,
+          url:
+            'https://www.yelp.com/biz/frances-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Humphry Slocombe Ice Cream',
+          image_url:
+            'https://s3-media1.fl.yelpcdn.com/bphoto/N9XikmqttZy5StpPxkJing/o.jpg',
+          price: '$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/humphry-slocombe-ice-cream-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        },
+        {
+          name: 'Craftsman and Wolves',
+          image_url:
+            'https://s3-media2.fl.yelpcdn.com/bphoto/G9ukcdVO74PJcLSlxwDHBQ/o.jpg',
+          price: '$$',
+          rating: 4,
+          url:
+            'https://www.yelp.com/biz/craftsman-and-wolves-san-francisco?adjust_creative=iEpLEToZM2OKmFPw8Zw8oQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=iEpLEToZM2OKmFPw8Zw8oQ'
+        }
       ];
-    
-      const finalReview = formatReviews(reviewObject.body);
-    
+
+      const finalReview = formatReviews(reviewObject.businesses);
+
       expect(finalReview).toEqual(expectation);
     });
-
-
   });
 });
